@@ -1,19 +1,17 @@
-package entities;
+package com.app.entities;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
-import lombok.Setter;
+import lombok.*;
+
 import java.util.List;
 
 @Entity
 @Getter @Setter
-@RequiredArgsConstructor
 @NoArgsConstructor
-@Table(name = "en_product")
+@AllArgsConstructor
+@Table(name = "ee_product")
 public class Product extends BaseEntity {
 
     @Column(name = "category")

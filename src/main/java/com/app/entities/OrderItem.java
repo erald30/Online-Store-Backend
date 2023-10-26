@@ -1,18 +1,16 @@
-package entities;
+package com.app.entities;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+
+import java.util.UUID;
 
 @Entity
 @Getter
 @Setter
-@Table(name = "en_order_item")
+@Table(name = "ee_order_item")
 public class OrderItem extends BaseEntity {
-    @Column(name = "product_id")
-    private Long productId;
 
     @Column(name = "product_title")
     private String productTitle;
@@ -26,6 +24,10 @@ public class OrderItem extends BaseEntity {
     @Column(name = "quantity")
     private int quantity;
 
+    @ManyToOne
+    @JoinColumn(name = "order_id", insertable = false, updatable = false)
+    private Order order;
+
     @Column(name = "order_id")
-    private long orderId;
+    private UUID orderId;
 }

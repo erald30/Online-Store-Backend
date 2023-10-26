@@ -1,20 +1,18 @@
-package entities;
+package com.app.entities;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.List;
+
 @Entity
 @Getter @Setter
-@Table(name = "en_user")
+@Table(name = "ee_user")
 public class User extends BaseEntity {
 
-    @Column(name = "username")
     private String username;
 
-    @Column(name = "password")
     private String password;
 
     @Column(name = "first_name")
@@ -23,6 +21,8 @@ public class User extends BaseEntity {
     @Column(name = "last_name")
     private  String lastName;
 
-    @Column(name = "email")
     private String email;
+
+    @OneToMany(mappedBy = "user")
+    private List<Order> orders;
 }

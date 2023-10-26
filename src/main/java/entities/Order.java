@@ -1,6 +1,5 @@
 package entities;
 
-import jakarta.persistence.CollectionTable;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
@@ -12,7 +11,7 @@ import java.util.List;
 @Entity
 @Getter @Setter
 @Table(name = "db_order")
-public class Order extends BasEntity {
+public class Order extends BaseEntity {
 
     @Column(name = "order_items")
     private List<OrderItem> orderItems;

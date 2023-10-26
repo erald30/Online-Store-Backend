@@ -2,7 +2,6 @@ package entities;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -15,7 +14,7 @@ import java.util.List;
 @RequiredArgsConstructor
 @NoArgsConstructor
 @Table(name = "en_product")
-public class Product extends BasEntity {
+public class Product extends BaseEntity {
 
     @Column(name = "category")
     private String category;

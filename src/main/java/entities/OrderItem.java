@@ -10,7 +10,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @Table(name = "en_order_item")
-public class OrderItem extends BasEntity{
+public class OrderItem extends BaseEntity {
     @Column(name = "product_id")
     private Long productId;
 

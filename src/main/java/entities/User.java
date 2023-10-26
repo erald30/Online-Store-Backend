@@ -6,12 +6,10 @@ import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.UUID;
-
 @Entity
 @Getter @Setter
 @Table(name = "en_user")
-public class User extends BasEntity {
+public class User extends BaseEntity {
 
     @Column(name = "username")
     private String username;

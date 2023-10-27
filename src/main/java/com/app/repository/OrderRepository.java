@@ -14,4 +14,6 @@ public interface OrderRepository extends JpaRepository<Order, UUID>{
     @Query(" from Order o where o.createdAt = :createdAt")
     List<Order> getOrdersInDate(@Param("createdAt") Instant createdAt);
 
+    List<Order> findAllByCreatedAtEquals(Instant createdAt);
+
 }

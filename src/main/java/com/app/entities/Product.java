@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.util.List;
+import java.util.UUID;
 
 @Entity
 @Getter @Setter
@@ -11,9 +12,6 @@ import java.util.List;
 @AllArgsConstructor
 @Table(name = "ee_product")
 public class Product extends BaseEntity {
-
-    @Column(name = "category")
-    private String category;
 
     @Column(name = "brand")
     private String brand;
@@ -32,8 +30,10 @@ public class Product extends BaseEntity {
 
     @Column(name = "product_image_1")
     private String  productImage1;
+
     @Column(name = "product_image_2")
     private String  productImage2;
+    
     @Column(name = "product_image_3")
     private String  productImage3;
 
@@ -51,11 +51,11 @@ public class Product extends BaseEntity {
 
     @Column(name = "on_sale")
     private boolean onSale;
+
+    @Column(name = "category_id")
+    protected UUID categoryId;
+
     @ManyToOne
-    @JoinColumn(name = "product_id",insertable = false,updatable = false)
-    private PreferredProducts preferredProducts;
-
-
-
-
+    @JoinColumn(name = "category_id", insertable = false, updatable = false)
+    protected Category category;
 }

@@ -30,7 +30,8 @@ public class SpringSecurityConfiguration {
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> {
                     auth.requestMatchers("/auth/**").permitAll();
-                 //   auth.requestMatchers("/test/**").permitAll();
+                    auth.requestMatchers("/api-docs/**").permitAll();
+                    auth.requestMatchers("/categories/**").permitAll();
                     auth.requestMatchers("/orders/**").hasAnyRole("USER");
                     auth.anyRequest().authenticated();
                 })

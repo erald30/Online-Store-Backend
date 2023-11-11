@@ -2,6 +2,7 @@ package com.app.configuration;
 
 import com.app.dto.ServiceResponse;
 import com.app.dto.UserRegister;
+import com.app.services.CategoryService;
 import com.app.services.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class StartUpRunner implements CommandLineRunner {
     private final UserService userService;
+    private final CategoryService categoryService;
 
     @Override
     public void run(String... args) throws Exception {
@@ -23,5 +25,7 @@ public class StartUpRunner implements CommandLineRunner {
                 .roles("ADMIN")
                 .build());
         log.error("Admin user created: {}", ((ServiceResponse<?>)result.getBody()).isSuccess());
+
+        categoryService.createDefaultCategories();
     }
 }

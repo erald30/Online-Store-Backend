@@ -23,12 +23,15 @@ public class SpringSecurityConfiguration {
     public DefaultSecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {
         httpSecurity
                 .csrf(AbstractHttpConfigurer::disable)
+                .cors(AbstractHttpConfigurer::disable)
                 .headers(headers -> headers.cacheControl(HeadersConfigurer.CacheControlConfig::disable))
                 .httpBasic(withDefaults())
                 .userDetailsService(userService)
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> {
                     auth.requestMatchers("/auth/**").permitAll();
+                 //   auth.requestMatchers("/test/**").permitAll();
+                    auth.requestMatchers("/orders/**").hasAnyRole("USER");
                     auth.anyRequest().authenticated();
                 })
                 .formLogin(AbstractHttpConfigurer::disable)

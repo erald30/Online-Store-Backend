@@ -1,14 +1,17 @@
 package com.app.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.UUID;
 
 @Entity
 @Getter
 @Setter
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 @Table(name = "ee_order_item")
 public class OrderItem extends BaseEntity {
 
@@ -25,6 +28,7 @@ public class OrderItem extends BaseEntity {
     private int quantity;
 
     @ManyToOne
+    @JsonIgnore
     @JoinColumn(name = "order_id", insertable = false, updatable = false)
     private Order order;
 

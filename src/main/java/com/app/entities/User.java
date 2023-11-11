@@ -22,7 +22,10 @@ public class User extends BaseEntity {
     private  String lastName;
 
     private String email;
+    private String role;
 
     @OneToMany(mappedBy = "user")
     private List<Order> orders;
+    @OneToMany(mappedBy = "user")
+    private List<PreferredProducts> preferredProducts;
 }

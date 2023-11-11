@@ -20,5 +20,6 @@ public class UserRegister {
     protected String firstName;
     @NotBlank
     protected String lastName;
+    protected String roles;
 
 }

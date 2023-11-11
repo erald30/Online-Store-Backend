@@ -1,8 +1,6 @@
 package com.app.entities;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.*;
 
 import java.util.List;
@@ -32,11 +30,12 @@ public class Product extends BaseEntity {
     @Column(name = "banner_image")
     private String bannerImage;
 
-    @Column(name = "product_image")
-    private List<String>  productImage;
-
-    @Column(name = "rating")
-    private int rating;
+    @Column(name = "product_image_1")
+    private String  productImage1;
+    @Column(name = "product_image_2")
+    private String  productImage2;
+    @Column(name = "product_image_3")
+    private String  productImage3;
 
     @Column(name = "price")
     private double price;
@@ -52,6 +51,10 @@ public class Product extends BaseEntity {
 
     @Column(name = "on_sale")
     private boolean onSale;
+    @ManyToOne
+    @JoinColumn(name = "product_id",insertable = false,updatable = false)
+    private PreferredProducts preferredProducts;
+
 
 
 

@@ -8,15 +8,17 @@ import com.app.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Base64;
-import java.util.Optional;
+import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Service
 @RequiredArgsConstructor
@@ -28,9 +30,16 @@ public class UserService implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
         return userRepository.findUserByUsername(username)
-                .map(user -> new org.springframework.security.core.userdetails
-                        .User(user.getUsername(),user.getPassword(),new ArrayList<>()))
-                .orElseThrow(() -> new UsernameNotFoundException("Username not found: " + username) );
+                .map(user -> {
+                    Set<GrantedAuthority> authorities = Stream.of(user.getRole()
+                                    .split(","))
+                            .map(o -> new SimpleGrantedAuthority("ROLE_" + o))
+                            .collect(Collectors.toSet());
+
+                    return new org.springframework.security.core.userdetails
+                            .User(user.getUsername(), user.getPassword(), authorities);
+                })
+                .orElseThrow(() -> new UsernameNotFoundException("Username not found: " + username));
     }
 
     public ResponseEntity<?> registerUser(UserRegister dto){
@@ -42,6 +51,7 @@ public class UserService implements UserDetailsService {
                     user.setPassword(passwordEncoder.encode(dto.getPassword()));
                     user.setFirstName(dto.getFirstName());
                     user.setLastName(dto.getLastName());
+                    user.setRole(dto.getRoles());
                     userRepository.save(user);
                     return ResponseEntity.ok(ServiceResponse.ok(user));
                 });
@@ -64,10 +74,16 @@ public class UserService implements UserDetailsService {
                 public String token = base64String;
                 public String firstName = dbUser.get().getFirstName();
                 public String lastName = dbUser.get().getLastName();
+                public String roles = dbUser.get().getRole();
 
             }));
         }else{
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Authentication failed");
         }
     }
+    public List<User> findAllUsersByRole(String role){
+        return userRepository.findAllByRole(role);
+
+    }
+
 }

@@ -25,6 +25,10 @@ public class ProductService {
         return productRepository.findAll();
     }
 
+    public List<Product>getLatestProducts(){
+        return productRepository.findLatest();
+    }
+
     public Optional<Product> getProductByTittle(String title){
         return productRepository
                 .findProductsByTitleIgnoreCase(title);

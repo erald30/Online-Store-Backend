@@ -1,5 +1,6 @@
 package com.app.controllers;
 
+import com.app.dto.ProductSearch;
 import com.app.entities.Product;
 import com.app.services.ProductService;
 import lombok.RequiredArgsConstructor;
@@ -10,10 +11,16 @@ import java.util.List;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("/api/v1/products")
+@RequestMapping("/products")
 @RequiredArgsConstructor
 public class ProductController {
     private final ProductService productService;
+
+    @GetMapping("/search")
+    public List<Product> search(ProductSearch search) {
+        return productService.search(search);
+    }
+
     @GetMapping("/all")
     public List<Product> getAll(){
         return productService.getAllProducts();

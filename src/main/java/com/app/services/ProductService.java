@@ -1,5 +1,6 @@
 package com.app.services;
 
+import com.app.dto.ProductSearch;
 import com.app.entities.Category;
 import com.app.entities.Product;
 import com.app.repository.CategoryRepository;
@@ -20,6 +21,15 @@ import java.util.stream.Collectors;
 public class ProductService {
     private final ProductRepository productRepository;
     private final CategoryRepository categoryRepository;
+
+    public List<Product> search(ProductSearch search) {
+        // TODO Create query to search by title and description on query attribute, search on category title when category attribute is not null
+
+        return productRepository.searchProductsByQueryAndCategory(
+                !search.getQuery().isBlank() ? search.getQuery() : null,
+                !search.getCategory().isBlank() ? search.getCategory() : null
+        );
+    }
 
     public List<Product> getAllProducts(){
         return productRepository.findAll();

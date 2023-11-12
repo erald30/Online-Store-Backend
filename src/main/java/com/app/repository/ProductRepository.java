@@ -15,7 +15,7 @@ public interface ProductRepository extends JpaRepository<Product, UUID>{
     List<Product> findProductByOnSale(Boolean onSale);
 
     Optional<Product> findProductsByTitleIgnoreCase(String description);
-    List<Product> findAllByCategoryId(UUID id);
+
 
 
 }

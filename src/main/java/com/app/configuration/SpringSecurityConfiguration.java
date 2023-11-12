@@ -39,6 +39,7 @@ public class SpringSecurityConfiguration {
                     auth.requestMatchers("/auth/**").permitAll();
                     auth.requestMatchers("/api-docs/**").permitAll();
                     auth.requestMatchers("/categories/**").permitAll();
+                    auth.requestMatchers("/api/v1/products/**").permitAll();
                     auth.requestMatchers("/orders/**").hasAnyRole("USER");
                     auth.anyRequest().authenticated();
                 })

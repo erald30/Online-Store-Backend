@@ -22,8 +22,12 @@ public class ProductController {
     }
 
     @GetMapping("/all")
-    public List<Product> getAll(){
-        return productService.getAllProducts();
+        public List<Product> getAll () {
+            return productService.getAllProducts();
+        }
+    @GetMapping("/newProducts")
+    public List<Product> getNewProducts () {
+        return productService.getLatestProducts();
     }
     @PostMapping("/add")
     public ResponseEntity<?> add(@RequestBody Product product){

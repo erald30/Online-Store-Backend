@@ -1,6 +1,6 @@
 package com.app.controllers;
 
-import com.app.dto.ProductSearch;
+import com.app.dto.ProductFilter;
 import com.app.entities.Product;
 import com.app.services.ProductService;
 import lombok.RequiredArgsConstructor;
@@ -17,7 +17,7 @@ public class ProductController {
     private final ProductService productService;
 
     @GetMapping("/search")
-    public List<Product> search(ProductSearch search) {
+    public List<Product> search(ProductFilter search) {
         return productService.search(search);
     }
 

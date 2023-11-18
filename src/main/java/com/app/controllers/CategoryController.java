@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/categories")
 public class CategoryController {
     private final CategoryService categoryService;
-
     @GetMapping("")
     public ResponseEntity<?> getList() {
         return categoryService.getList();

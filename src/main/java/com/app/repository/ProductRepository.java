@@ -16,9 +16,11 @@ public interface ProductRepository extends JpaRepository<Product, UUID>{
 
     List<Product> findProductByOnSale(Boolean onSale);
 
+
+
     Optional<Product> findProductsByTitleIgnoreCase(String description);
 
-    @Query("from Product order by createdAt desc limit 5")
+    @Query("from Product order by createdAt desc limit 4")
     List<Product> findLatest();
 
 

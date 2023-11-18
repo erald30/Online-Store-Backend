@@ -25,7 +25,7 @@ public class ProductController {
         public List<Product> getAll () {
             return productService.getAllProducts();
         }
-    @GetMapping("/newProducts")
+    @GetMapping("/new-products")
     public List<Product> getNewProducts () {
         return productService.getLatestProducts();
     }

@@ -16,4 +16,6 @@ public interface OrderRepository extends JpaRepository<Order, UUID>{
 
     List<Order> findAllByCreatedAtEquals(Instant createdAt);
 
+    List<Order> findAllByUserId(UUID uuid);
+
 }

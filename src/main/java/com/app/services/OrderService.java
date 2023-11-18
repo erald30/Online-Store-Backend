@@ -4,19 +4,23 @@ import com.app.dto.OrderRequest;
 import com.app.dto.ProductRequest;
 import com.app.entities.Order;
 import com.app.entities.OrderItem;
+import com.app.entities.Product;
 import com.app.repository.OrderItemRepository;
 import com.app.repository.OrderRepository;
+import com.app.repository.ProductRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
 public class OrderService {
     private final OrderRepository orderRepository;
     private final OrderItemRepository orderItemRepository;
+    private final ProductRepository productRepository;
 
 
     public List<Order> getList() {
@@ -34,18 +38,23 @@ public class OrderService {
         orderRepository.save(newOrder);
 
 
+
         double total = 0;
         for (ProductRequest item : orderRequest.getOrderItems()) {
-            OrderItem newOrderItem = OrderItem.builder()
-                    .orderId(newOrder.getId())
-                    .productTitle(item.getProductTitle())
-                    .quantity(item.getQuantity())
-                    .productPrice(item.getProductPrice())
-                    //   .total(item.getProductPrice() * item.getQuantity())
-                    .build();
-            orderItemRepository.save(newOrderItem);
+            Optional<Product> optionalProduct = productRepository.findProductsByTitleIgnoreCase(item.getProductTitle());
+            if (optionalProduct.isPresent()) {
+                OrderItem newOrderItem = OrderItem.builder()
+                        .orderId(newOrder.getId())
+                        .productTitle(item.getProductTitle())
+                        .quantity(item.getQuantity())
+                        .productPrice(optionalProduct.get().getPrice())
+                        .productSale(optionalProduct.get().isOnSale())
+                        //   .total(item.getProductPrice() * item.getQuantity())
+                        .build();
 
-            total += item.getProductPrice() * item.getQuantity();
+                orderItemRepository.save(newOrderItem);
+            }
+            total += optionalProduct.get().getPrice() * item.getQuantity();
         }
         List<OrderItem> orderItems = orderItemRepository.findAll();
 

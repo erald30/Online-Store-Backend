@@ -1,6 +1,7 @@
 package com.app.controllers;
 
 import com.app.dto.ProductFilter;
+import com.app.entities.OrderItem;
 import com.app.entities.Product;
 import com.app.services.ProductService;
 import lombok.RequiredArgsConstructor;
@@ -28,6 +29,10 @@ public class ProductController {
     @GetMapping("/new-products")
     public List<Product> getNewProducts () {
         return productService.getLatestProducts();
+    }
+    @GetMapping("/top-selling-products")
+    public List<OrderItem> getTopSellingProducts(){
+        return productService.getMostSellingProducts();
     }
     @PostMapping("/add")
     public ResponseEntity<?> add(@RequestBody Product product){

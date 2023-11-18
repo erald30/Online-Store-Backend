@@ -23,7 +23,6 @@ public interface ProductRepository extends JpaRepository<Product, UUID>{
     @Query("from Product order by createdAt desc limit 4")
     List<Product> findLatest();
 
-
     @Query("""
         from Product p left join fetch p.category c where 
         (:query is null or lower(p.title) like lower(concat('%', lower(:query) , '%'))) 

@@ -2,8 +2,10 @@ package com.app.services;
 
 import com.app.dto.ProductSearch;
 import com.app.entities.Category;
+import com.app.entities.OrderItem;
 import com.app.entities.Product;
 import com.app.repository.CategoryRepository;
+import com.app.repository.OrderItemRepository;
 import com.app.repository.ProductRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -21,6 +23,7 @@ import java.util.stream.Collectors;
 public class ProductService {
     private final ProductRepository productRepository;
     private final CategoryRepository categoryRepository;
+    private final OrderItemRepository orderItemRepository;
 
     public List<Product> search(ProductSearch search) {
         // TODO Create query to search by title and description on query attribute, search on category title when category attribute is not null
@@ -366,5 +369,9 @@ public class ProductService {
             log.info("Product created");
             return item;
         });
+    }
+
+    public List<OrderItem> getMostSellingProducts() {
+        return orderItemRepository.findMostSoldProducts();
     }
 }

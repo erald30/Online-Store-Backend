@@ -30,8 +30,8 @@ public class ProductController {
     public List<Product> getNewProducts () {
         return productService.getLatestProducts();
     }
-    @GetMapping("/top-selling-products")
-    public List<OrderItem> getTopSellingProducts(){
+    @GetMapping("/most-sold-products")
+    public List<Product> getTopSellingProducts(){
         return productService.getMostSellingProducts();
     }
     @PostMapping("/add")

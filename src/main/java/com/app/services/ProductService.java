@@ -373,7 +373,7 @@ public class ProductService {
         });
     }
 
-    public List<OrderItem> getMostSellingProducts() {
-        return orderItemRepository.findMostSoldProducts();
+    public List<Product> getMostSellingProducts() {
+        return productRepository.findMostSoldProducts();
     }
 }

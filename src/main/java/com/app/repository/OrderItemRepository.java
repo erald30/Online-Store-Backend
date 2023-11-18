@@ -10,8 +10,7 @@ import java.util.UUID;
 
 public interface OrderItemRepository extends JpaRepository<OrderItem, UUID>{
 
-    @Query("from OrderItem o order by o.quantity desc limit 4")
-    List<OrderItem> findMostSoldProducts();
+
     List<OrderItem> findAllByOrderId (UUID orderId);
 
     List<OrderItem> findAllByProductTitleContainingIgnoreCase(String title);

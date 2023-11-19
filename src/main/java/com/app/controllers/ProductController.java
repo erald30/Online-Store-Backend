@@ -31,7 +31,7 @@ public class ProductController {
         return productService.getLatestProducts();
     }
     @GetMapping("/most-sold-products")
-    public List<Product> getTopSellingProducts(){
+    public List<Product> getMostSoldProducts(){
         return productService.getMostSellingProducts();
     }
     @PostMapping("/add")
@@ -53,4 +53,5 @@ public class ProductController {
     public Product getById(@PathVariable("id") UUID id){
         return productService.getById(id);
     }
+
 }

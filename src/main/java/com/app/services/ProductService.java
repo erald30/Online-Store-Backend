@@ -379,6 +379,6 @@ public class ProductService {
     }
 
     public Product getById(UUID id) {
-        return productRepository.findById(id).orElseThrow();
+        return productRepository.findById(id).orElseGet(() -> null);
     }
 }

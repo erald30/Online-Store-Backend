@@ -26,6 +26,4 @@ public class UserController {
     public ResponseEntity<?> signIn(@RequestBody @Valid UserSignIn userSignIn) {
         return userService.loginUser(userSignIn);
     }
-
-
 }

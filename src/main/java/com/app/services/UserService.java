@@ -59,27 +59,37 @@ public class UserService implements UserDetailsService {
 
     public ResponseEntity<?> loginUser(UserSignIn dto){
 
-        UserDetails userDetails = loadUserByUsername(dto.getUsername());
+        try {
+            UserDetails userDetails = loadUserByUsername(dto.getUsername());
 
-        if (userDetails != null && passwordEncoder.matches(dto.getPassword(), userDetails.getPassword())){
+            if (userDetails != null && passwordEncoder.matches(dto.getPassword(), userDetails.getPassword())){
 
-            Optional<User> dbUser = userRepository.findUserByUsername(dto.getUsername());
+                Optional<User> dbUser = userRepository.findUserByUsername(dto.getUsername());
 
-            byte[] encodedBytes = Base64.getEncoder()
-                    .encode(String.format("%s %s",dto.getUsername(),dto.getPassword()).getBytes());
+                byte[] encodedBytes = Base64.getEncoder()
+                        .encode(String.format("%s %s",dto.getUsername(),dto.getPassword()).getBytes());
 
-            String base64String = new String(encodedBytes);
+                String base64String = new String(encodedBytes);
 
-            return ResponseEntity.ok(ServiceResponse.ok(new Object(){
-                public String token = base64String;
-                public String firstName = dbUser.get().getFirstName();
-                public String lastName = dbUser.get().getLastName();
-                public String roles = dbUser.get().getRole();
+                return ResponseEntity.ok(new Object(){
+                    public String token = base64String;
+                    public String firstName = dbUser.get().getFirstName();
+                    public String lastName = dbUser.get().getLastName();
+                    public String email = dbUser.get().getEmail();
+                    public String role = dbUser.get().getRole();
 
-            }));
-        }else{
+                });
+            }
+            else {
+
+                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Authentication failed");
+            }
+        }
+        catch (Exception ex) {
+            ex.printStackTrace();
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Authentication failed");
         }
+
     }
     public List<User> findAllUsersByRole(String role){
         return userRepository.findAllByRole(role);

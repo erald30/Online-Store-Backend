@@ -48,7 +48,6 @@ public class OrderService {
                         .quantity(item.getQuantity())
                         .productPrice(optionalProduct.get().getPrice())
                         .productSale(optionalProduct.get().isOnSale())
-                        //   .total(item.getProductPrice() * item.getQuantity())
                         .build();
 
                 orderItemRepository.save(newOrderItem);

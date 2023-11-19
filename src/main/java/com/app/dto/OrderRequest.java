@@ -10,5 +10,5 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class OrderRequest {
-    protected List<ProductRequest> orderItems = new ArrayList<>();
+    protected List<OrderItemDto> orderItems = new ArrayList<>();
 }

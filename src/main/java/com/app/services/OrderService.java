@@ -1,7 +1,7 @@
 package com.app.services;
 
 import com.app.dto.OrderRequest;
-import com.app.dto.ProductRequest;
+import com.app.dto.OrderItemDto;
 import com.app.entities.Order;
 import com.app.entities.OrderItem;
 import com.app.entities.Product;
@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -37,10 +38,8 @@ public class OrderService {
 
         orderRepository.save(newOrder);
 
-
-
         double total = 0;
-        for (ProductRequest item : orderRequest.getOrderItems()) {
+        for (OrderItemDto item : orderRequest.getOrderItems()) {
             Optional<Product> optionalProduct = productRepository.findProductsByTitleIgnoreCase(item.getProductTitle());
             if (optionalProduct.isPresent()) {
                 OrderItem newOrderItem = OrderItem.builder()
@@ -55,6 +54,11 @@ public class OrderService {
                 orderItemRepository.save(newOrderItem);
             }
             total += optionalProduct.get().getPrice() * item.getQuantity();
+
+            productRepository.findById(UUID.fromString(item.getProductId())).ifPresent(product -> {
+                product.setTotalSales(product.getTotalSales() + item.getQuantity());
+                productRepository.save(product);
+            });
         }
         List<OrderItem> orderItems = orderItemRepository.findAll();
 

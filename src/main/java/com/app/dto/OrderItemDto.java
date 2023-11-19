@@ -7,8 +7,8 @@ import lombok.*;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class ProductRequest {
-    protected Long productId;
+public class OrderItemDto {
+    protected String productId;
     protected String productTitle;
     protected double productPrice;
     protected int quantity;

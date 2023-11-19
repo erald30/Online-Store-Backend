@@ -47,4 +47,10 @@ public class ProductController {
     public ResponseEntity<?> delete(@PathVariable("id") UUID id){
         return productService.delete(id);
     }
+
+
+    @GetMapping("/product-details/{id}")
+    public Product getById(@PathVariable("id") UUID id){
+        return productService.getById(id);
+    }
 }

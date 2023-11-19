@@ -215,6 +215,7 @@ public class ProductService {
                             "Kontrasti: Mega Kontrast, HDR 10+, HLG, UHD Dimming.")
                     .price(459990)
                     .onSale(true)
+                    .bannerImage("https://www.neptun.al/2022/12/07/TV4955.JPG")
                     .productImage1("https://www.neptun.al/2022/12/07/TV4955.JPG")
                     .productImage2("https://www.neptun.al/2022/12/07/TV4955_3.JPG")
                     .productImage3("https://www.neptun.al/2022/12/07/TV4955_1.JPG")
@@ -375,5 +376,9 @@ public class ProductService {
 
     public List<Product> getMostSellingProducts() {
         return productRepository.findMostSoldProducts();
+    }
+
+    public Product getById(UUID id) {
+        return productRepository.findById(id).orElseThrow();
     }
 }
